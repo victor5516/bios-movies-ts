@@ -1,0 +1,173 @@
+{
+	"info": {
+		"_postman_id": "b9efd7c6-2064-43ae-ba42-02de90b2392c",
+		"name": "PeliculasBios",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24465776"
+	},
+	"item": [
+		{
+			"name": "update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "title",
+							"value": "Matrix",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Ciencia ficcion, un mundo dominado por maquinas",
+							"type": "text"
+						},
+						{
+							"key": "rating",
+							"value": "90",
+							"type": "text"
+						},
+						{
+							"key": "duration",
+							"value": "2:05",
+							"type": "text"
+						},
+						{
+							"key": "year",
+							"value": "1998",
+							"type": "text"
+						},
+						{
+							"key": "director",
+							"value": "Juan Chwaroski",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/movies/65423a5847be08355cdc7493",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"movies",
+						"65423a5847be08355cdc7493"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "title",
+							"value": "SAW",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Pelicula de terror",
+							"type": "text"
+						},
+						{
+							"key": "rating",
+							"value": "70",
+							"type": "text"
+						},
+						{
+							"key": "duration",
+							"value": "1:30",
+							"type": "text"
+						},
+						{
+							"key": "director",
+							"value": "Juan Perez",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/movies/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"movies",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/courses?period=2023-2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"courses"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Calculo Avanzado",
+							"disabled": true
+						},
+						{
+							"key": "period",
+							"value": "2023-2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/courses/653061220e04a967b0b7f66f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"courses",
+						"653061220e04a967b0b7f66f"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

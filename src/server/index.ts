@@ -7,10 +7,12 @@ import moviesRoutes from './routes/movies.routes';
 
 const app = express();
 
-app.use(express.json());
+
 //midelewares
+app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
 
 //ruta de prueba
 app.get('/', (req, res) => {
