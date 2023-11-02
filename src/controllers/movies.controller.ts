@@ -6,7 +6,7 @@ import { createMovieService, getMoviesService, updateMovieService, deleteMovieSe
 
 
 
-export const getMovie = async (
+export const getMovies = async (
     req: Request,
     _res: Response,
     next: NextFunction

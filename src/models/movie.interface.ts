@@ -5,6 +5,6 @@ export interface IMovie {
     director: string;
     description: string;
     rating: number;
-
+    image: string;
 }
 

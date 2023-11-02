@@ -7,6 +7,7 @@ const movieSchema = new Schema<IMovie>({
     director: { type: String, required: true },
     description: { type: String, required: true },
     rating: { type: Number, required: true },
+    image: { type: String },
 
 });
 
