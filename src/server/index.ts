@@ -1,18 +1,25 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import { handleError } from '../handlers/error.handler';
 import { handleResponse } from '../handlers/response.handler';
 import cors from 'cors';
 
-import moviesRoutes from './routes/movies.routes';
+import moviesRoutes from './routes/movie.routes';
 
 const app = express();
 
-app.use(cors());
+const allowedOrigins = ['http://localhost:5173'];
+
+const options: cors.CorsOptions = {
+  origin: allowedOrigins
+};
+
 //midelewares
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors(options));
 
 //ruta de prueba
 app.get('/', (req, res) => {
