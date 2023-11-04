@@ -6,6 +6,7 @@ import { handleResponse } from '../handlers/response.handler';
 import cors from 'cors';
 
 import moviesRoutes from './routes/movie.routes';
+import userRoutes from './routes/user.routes';
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/v1', moviesRoutes);
+app.use('/api/v1', userRoutes);
 
 app.use(handleResponse);
 app.use(handleError);
