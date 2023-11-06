@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import { handleError } from '../handlers/error.handler';
 import { handleResponse } from '../handlers/response.handler';
-import cors from 'cors';
+
 
 import moviesRoutes from './routes/movie.routes';
 import userRoutes from './routes/user.routes';
