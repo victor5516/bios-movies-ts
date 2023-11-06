@@ -1,12 +1,30 @@
 import { IMovie } from "../models/movie.interface";
-import { createMovieStorage, getMoviesStorage, updateMovieStorage, deleteMovieStorage } from "../storage/movie.storage";
+import { createMovieStorage, getMoviesStorage, updateMovieStorage, deleteMovieStorage, getMovieStorage } from "../storage/movie.storage";
 import { ErrorHandler } from "../handlers/error.handler";
+import axios from "axios";
 
 
 export const createMovieService = async (movie: IMovie) => {
     const newMovie = await createMovieStorage(movie);
     return newMovie;
 }
+
+const searchOMDB = async (title: string) => {
+    const response = await axios.get(`${process.env.OMDB_URL}t=${title}`);
+    const data = response.data;
+    if(data.Response === "False")
+        return new ErrorHandler(404, "No se encontro la pelicula");
+    return data;
+}
+
+const serializeMovie = (movie: any): IMovie => ({
+        title: movie.Title.toLowerCase(),
+        year: movie.Year,
+        director: movie.Director,
+        description: movie.Plot,
+        rating: movie.Metascore,
+    })
+
 
 export const getMoviesService = async (query: any) => {
     const filter = {};
@@ -36,6 +54,18 @@ export const getMoviesService = async (query: any) => {
 
     const movies = await getMoviesStorage(filter, sort);
     return movies;
+}
+
+export const getMovieService = async (title) => {
+    const titleLowerCase = title.toLocaleLowerCase();
+    let movie = await getMovieStorage(titleLowerCase);
+    if(!movie){
+        const movieOMDB = await searchOMDB(titleLowerCase);
+        if(movieOMDB instanceof ErrorHandler)
+            return movieOMDB;
+        movie = await createMovieStorage(serializeMovie(movieOMDB));
+    }
+    return movie;
 }
 
 export const updateMovieService =async (id:string, movie: Partial<IMovie>) => {

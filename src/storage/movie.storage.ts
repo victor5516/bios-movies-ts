@@ -43,5 +43,16 @@ export const deleteMovieStorage = async(id:string)=>{
     }
 }
 
+export const getMovieStorage = async(title:string)=>{
+
+    try {
+        const movie = await Movie.findOne({title})
+        return movie
+    } catch (error) {
+        return new ErrorHandler(500, "Error al obtener pelicula")
+
+    }
+}
+
 
 

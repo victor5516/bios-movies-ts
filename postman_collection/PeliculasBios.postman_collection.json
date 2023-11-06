@@ -13,23 +13,97 @@
 					"name": "getUsers",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "createUser",
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "marcos.lopez@bios.com",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Marcos Lopez",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12345678",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "login",
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "marcos.lopez@bios.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12345678",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"login"
+							]
+						}
 					},
 					"response": []
 				}
@@ -99,33 +173,44 @@
 					"name": "create",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "auth-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTQ2M2QxOTc4NDI1ZGZkOTI2Y2UyOGEiLCJuYW1lIjoiTWFyY29zIExvcGV6IiwiZW1haWwiOiJtYXJjb3MubG9wZXpAYmlvcy5jb20iLCJpYXQiOjE2OTkxMDQwMjJ9.L81tTBBg350fcf8dzpU6tY2SOcjlA25O78ij4Q7DX08",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "urlencoded",
 							"urlencoded": [
 								{
 									"key": "title",
-									"value": "SAW",
+									"value": "Avatar",
 									"type": "text"
 								},
 								{
 									"key": "description",
-									"value": "Pelicula de terror",
+									"value": "Pelicula de aventura",
 									"type": "text"
 								},
 								{
 									"key": "rating",
-									"value": "70",
+									"value": "90",
 									"type": "text"
 								},
 								{
 									"key": "duration",
-									"value": "1:30",
+									"value": "2:30",
 									"type": "text"
 								},
 								{
 									"key": "director",
-									"value": "Juan Perez",
+									"value": "James Cameron",
+									"type": "text"
+								},
+								{
+									"key": "year",
+									"value": "2009",
 									"type": "text"
 								}
 							]
@@ -151,9 +236,15 @@
 					"name": "get",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "auth-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTQ2M2QxOTc4NDI1ZGZkOTI2Y2UyOGEiLCJuYW1lIjoiTWFyY29zIExvcGV6IiwiZW1haWwiOiJtYXJjb3MubG9wZXpAYmlvcy5jb20iLCJpYXQiOjE2OTkxMDQwMjJ9.L81tTBBg350fcf8dzpU6tY2SOcjlA25O78ij4Q7DX08",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/courses?period=2023-2",
+							"raw": "http://localhost:3000/api/v1/movies?sort=title:asc",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -162,17 +253,80 @@
 							"path": [
 								"api",
 								"v1",
-								"courses"
+								"movies"
 							],
 							"query": [
 								{
-									"key": "name",
-									"value": "Calculo Avanzado",
+									"key": "title",
+									"value": "SAW",
 									"disabled": true
 								},
 								{
-									"key": "period",
-									"value": "2023-2"
+									"key": "id",
+									"value": "6542340afaee12d0111503c0",
+									"disabled": true
+								},
+								{
+									"key": "rating",
+									"value": "80",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "title:asc"
+								},
+								{
+									"key": "order",
+									"value": "desc",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getByTitle",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "auth-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTQ2M2QxOTc4NDI1ZGZkOTI2Y2UyOGEiLCJuYW1lIjoiTWFyY29zIExvcGV6IiwiZW1haWwiOiJtYXJjb3MubG9wZXpAYmlvcy5jb20iLCJpYXQiOjE2OTkxMDQwMjJ9.L81tTBBg350fcf8dzpU6tY2SOcjlA25O78ij4Q7DX08",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/movieByTitle?title=asdasdasdasdasd",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"movieByTitle"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "6542340afaee12d0111503c0",
+									"disabled": true
+								},
+								{
+									"key": "rating",
+									"value": "80",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "desc",
+									"disabled": true
+								},
+								{
+									"key": "title",
+									"value": "asdasdasdasdasd"
 								}
 							]
 						}
@@ -183,9 +337,15 @@
 					"name": "delete",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "auth-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTQ2M2QxOTc4NDI1ZGZkOTI2Y2UyOGEiLCJuYW1lIjoiTWFyY29zIExvcGV6IiwiZW1haWwiOiJtYXJjb3MubG9wZXpAYmlvcy5jb20iLCJpYXQiOjE2OTkxMDQwMjJ9.L81tTBBg350fcf8dzpU6tY2SOcjlA25O78ij4Q7DX08",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/courses/653061220e04a967b0b7f66f",
+							"raw": "http://localhost:3000/api/v1/movies/6548d433192a9d864edcd9fd",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -194,8 +354,8 @@
 							"path": [
 								"api",
 								"v1",
-								"courses",
-								"653061220e04a967b0b7f66f"
+								"movies",
+								"6548d433192a9d864edcd9fd"
 							]
 						}
 					},

@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { ErrorHandler } from "../handlers/error.handler";
 import { ResponseHandler } from "../handlers/response.handler";
 import { IMovie } from "../models/movie.interface";
-import { createMovieService, getMoviesService, updateMovieService, deleteMovieService } from "../services/movie.service";
+import { createMovieService, getMoviesService, updateMovieService, deleteMovieService, getMovieService } from "../services/movie.service";
 
 
 
@@ -26,6 +26,21 @@ export const getMovies = async (
     };
         next(new ResponseHandler(200, result, "Peliculas encontradas"));
     }
+
+export const getMovieByTitle = async (
+    req: Request,
+    _res: Response,
+    next: NextFunction
+    ) => {
+        const title = req.query.title;
+        const movie = await getMovieService(title);
+        if(movie instanceof ErrorHandler)
+            next(movie);
+        if(!movie)
+            next(new ErrorHandler(404, "No se encontro la pelicula"));
+        next(new ResponseHandler(200, movie, "Pelicula encontrada"));
+    }
+
 
 export const createMovie = async (
     req: Request,

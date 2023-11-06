@@ -4,7 +4,7 @@ export interface IMovie {
     year: number;
     director: string;
     description: string;
-    rating: number;
-    image: string;
+    rating: string;
+
 }
 

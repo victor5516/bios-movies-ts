@@ -3,7 +3,7 @@ import { createUserStorage, getUserStorage, getUserByEmailStorage } from "../sto
 import { ErrorHandler } from "../handlers/error.handler";
 import bcrypt from "bcrypt";
 import { sign } from "jsonwebtoken";
-const { TOKEN_SECRET } = process.env;
+
 const hashPassword = async (password: string) => {
     const salt = await bcrypt.genSalt(10);
     return await bcrypt.hash(password, salt);
@@ -18,6 +18,7 @@ export const createUserService = async (user: IUser) => {
     const userByEmail = await getUserByEmailStorage(email);
     if(userByEmail)
         return new ErrorHandler(400, "El usuario ya existe");
+
     const hashedPassword = await hashPassword(user.password);
 
     user.password = hashedPassword;
@@ -55,10 +56,12 @@ export const loginService = async (email: string, password: string) => {
         return user;
     if(!user)
         return new ErrorHandler(400, "email o contraseña incorrectos");
+
     const isPasswordValid = await comparePassword(password, user.password);
 
     if(!isPasswordValid)
         return new ErrorHandler(400, "email o contraseña incorrectos");
+
     const token = sign({
         _id: user._id,
         name: user.name,
