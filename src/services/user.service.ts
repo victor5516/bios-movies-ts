@@ -1,5 +1,5 @@
 import { ISecureUser, IUser } from "../models/user.interface";
-import { createUserStorage, getUserStorage, getUserByEmailStorage } from "../storage/user.storage";
+import { createUserStorage, getUserStorage, getUserByEmailStorage, updateUserStorage, deleteUserStorage } from "../storage/user.storage";
 import { ErrorHandler } from "../handlers/error.handler";
 import bcrypt from "bcrypt";
 import { sign } from "jsonwebtoken";
@@ -71,3 +71,34 @@ export const loginService = async (email: string, password: string) => {
     return token;
 }
 
+export const updateUserService = async (id: string, user: Partial<IUser>) => {
+    const { password } = user;
+    if(password){
+        const hashedPassword = await hashPassword(password);
+        user.password = hashedPassword;
+    }
+
+    const updateUser = await updateUserStorage(id, user);
+    if(updateUser instanceof ErrorHandler)
+        return updateUser;
+
+    const serializedUser: ISecureUser = {
+        _id: updateUser._id,
+        name: updateUser.name,
+        email: updateUser.email
+    };
+    return serializedUser;
+}
+
+export const deleteUserService= async (id: string) => {
+    const user = await deleteUserStorage(id);
+    if(user instanceof ErrorHandler)
+        return user;
+
+    const serializedUser: ISecureUser = {
+        _id: user._id,
+        name: user.name,
+        email: user.email
+    };
+    return serializedUser;
+}

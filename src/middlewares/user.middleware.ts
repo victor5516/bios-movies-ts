@@ -34,3 +34,27 @@ if (!errors.isEmpty()) {
 
 next();
 }
+
+export const loginUserMiddleware = async (
+    req: Request,
+    _res: Response,
+    next: NextFunction
+) => {
+    await checkSchema({
+        email: {
+            in: ['body'],
+            isEmail: true,
+            errorMessage: 'El email es requerido',
+        },
+        password: {
+            in: ['body'],
+            isString: true,
+            errorMessage: 'La contraseña es requerida',
+        },
+    }).run(req);
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        next(new ErrorHandler(400, errors.array()));
+    }
+    next();
+}

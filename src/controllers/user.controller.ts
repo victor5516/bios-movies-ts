@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { ErrorHandler } from "../handlers/error.handler";
 import { ResponseHandler } from "../handlers/response.handler";
 import { IUser } from "../models/user.interface";
-import { createUserService, getUserService, loginService } from "../services/user.service";
+import { createUserService, getUserService, loginService, updateUserService, deleteUserService } from "../services/user.service";
 
 export const createUser = async (
     req: Request,
@@ -47,3 +47,28 @@ export const login = async (
 
         next(new ResponseHandler(200, response, "Login exitoso"));
     }
+export const updateUser = async (
+    req: Request,
+    _res: Response,
+    next: NextFunction
+    )=> {
+        const id = req.params.id;
+        const user: Partial<IUser> = req.body;
+        const updatedUser = await updateUserService(id, user);
+        if(updatedUser instanceof ErrorHandler)
+            next(updatedUser);
+        next(new ResponseHandler(200, updatedUser, "Usuario actualizado"));
+    }
+
+
+export const deleteUser = async (
+    req: Request,
+    _res: Response,
+    next: NextFunction
+) => {
+    const id = req.params.id;
+    const user = await deleteUserService(id);
+    if(user instanceof ErrorHandler)
+        next(user);
+    next(new ResponseHandler(200, user, "Usuario eliminado"));
+}

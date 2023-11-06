@@ -31,3 +31,25 @@ export const getUserByEmailStorage = async (email: string): Promise<IUser | Erro
         return new ErrorHandler(500, "Error al obtener usuario");
     }
 }
+
+export const updateUserStorage = async (id: string, user: Partial<IUser>): Promise<IUser | ErrorHandler> => {
+
+    try{
+        const updateUser: IUser = await User.findByIdAndUpdate(id, user, {new: true});
+        return updateUser;
+    }
+    catch(err){
+        return new ErrorHandler(500, "Error al actualizar usuario");
+    }
+}
+
+export const deleteUserStorage = async (id: string): Promise<IUser | ErrorHandler> => {
+
+        try{
+            const user: IUser = await User.findByIdAndDelete(id);
+            return user;
+        }
+        catch(err){
+            return new ErrorHandler(500, "Error al eliminar usuario");
+        }
+}
