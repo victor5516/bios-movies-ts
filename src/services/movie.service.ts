@@ -14,7 +14,8 @@ const searchOMDB = async (title: string) => {
     const data = response.data;
     if(data.Response === "False")
         return new ErrorHandler(404, "No se encontro la pelicula");
-    return data;
+    const  movie = await createMovieStorage(serializeMovie(data));
+    return movie;
 }
 
 const serializeMovie = (movie: any): IMovie => ({
@@ -60,10 +61,7 @@ export const getMovieService = async (title) => {
     const titleLowerCase = title.toLocaleLowerCase();
     let movie = await getMovieStorage(titleLowerCase);
     if(!movie){
-        const movieOMDB = await searchOMDB(titleLowerCase);
-        if(movieOMDB instanceof ErrorHandler)
-            return movieOMDB;
-        movie = await createMovieStorage(serializeMovie(movieOMDB));
+        movie = await searchOMDB(titleLowerCase);
     }
     return movie;
 }
